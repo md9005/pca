@@ -1,0 +1,24 @@
+
+  
+  library(csv)
+  library(FactoMineR) 
+  library(factoextra) 
+  q_agua <- read.csv("/home/murilo/Downloads/qquali_agua.csv")
+  View(q_agua.active)
+  q_agua <- na.omit(q_agua)
+  q_agua.active <- scale(q_agua.active) 
+  q_agua.active <- q_agua[1:12, 2:5]
+  head(q_agua.active[,1:4],3) 
+  res.pca <- PCA(q_agua.active, graph = F)
+  eig.val <- get_eigenvalue(res.pca)
+  eig.val
+  fviz_eig(res.pca, addlabels = T, ylim = c(0,50))
+  fviz_screeplot(res.pca)
+  var <- get_pca_var(res.pca)
+  ind <- get_pca_ind(res.pca)
+  fviz_pca_var(res.pca, col.var = "blue")
+  grupo <- as.factor(q_agua[,1])
+  fviz_pca_biplot(res.pca, habillage = grupo, title = "Gráfio PCA Qualidade da Agua")
+  var$cos2
+  library(corrplot)
+  corrplot(var$cos2, is.corr = F)
